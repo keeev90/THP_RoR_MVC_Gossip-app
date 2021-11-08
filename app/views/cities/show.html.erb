@@ -1,0 +1,35 @@
+<br/>
+<br/>
+<br/>
+<br/>
+
+<h1>Les gossips de <%= @city.name %></h1>
+<br/>
+
+<!-- list group gossips -->
+<div class="container">
+<% @gossips.each_with_index do |gossip, index| %>
+  <div class="row">
+    <div class="col-4">
+      <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action" id="list-gossip<%=gossip.id%>-list" data-toggle="list" role="tab" aria-controls="gossip<%=gossip.id%>" href="#list-gossip<%=gossip.id%>">
+          <div class="d-flex justify-content-between">
+            <h5 class="mb-2">Gossip n°<%=index + 1%></h5>
+            <small><%=gossip.created_at%></small>
+          </div>
+          <p class="mb-2"><%=gossip.title%></p>
+          <small>Created by <%=gossip.user.first_name%></small>
+          <a class="btn btn-outline-secondary btn-sm" role="button" href="<%= gossip_path(gossip.id) %>">Voir le détail</a>
+        </a>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade" id="list-gossip<%=gossip.id%>" role="tabpanel" aria-labelledby="list-gossip<%=gossip.id%>-list"><%=gossip.content%></div>
+      </div>
+    </div>
+  </div>
+  <br/>
+<% end %>
+</div>
+<br/><br/><br/><br/>

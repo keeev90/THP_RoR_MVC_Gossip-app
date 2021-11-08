@@ -1,0 +1,50 @@
+<!-- Alerts / Flash messages -->
+<br/><br/><br/>
+<% flash.each do |key, msg| %>
+  <div class="alert alert-<%=key%> text-center" role="alert">
+    <%= msg %>
+  </div>
+<% end %>
+
+<!-- Sign-in form -->
+<div class="form-signin">
+  <%= form_tag url_for(action: 'create'), method: 'post' do %>
+    
+    <h1 class="h3 mb-3 fw-normal">S'inscrire</h1>
+    
+    <%= label_tag 'Prénom'%>
+    <div class="form-floating">
+      <%= text_field_tag 'first_name', value = nil, class: "form-control"%>
+    </div>
+
+    <%= label_tag 'Nom'%>
+    <div class="form-floating">
+      <%= text_field_tag 'last_name', value = nil, class: "form-control"%>
+    </div>
+
+    <%= label_tag 'Email'%>
+    <div class="form-floating">
+      <%= text_field_tag 'email', value = nil, class: "form-control"%>
+    </div>
+    
+    <%= label_tag 'Mot de passe'%>
+    <div class="form-floating">
+      <%= password_field_tag 'password', value = nil, class: "form-control" %>
+    </div>
+    
+    <%= label_tag 'Confirmation du mot de passe'%>
+    <div class="form-floating">
+      <%= password_field_tag 'password_confirmation', value = nil, class: "form-control" %>
+    </div>
+
+    <div class="form-floating">
+      <p><%= check_box_tag 'remember_me' %> Se souvenir de moi </p>
+    </div>
+
+    <%= submit_tag "Submit", class: "mt-4 w-100 btn btn-lg btn-primary" %>
+
+    <%= link_to "Déjà inscrit(e) ?", new_session_path %>
+    
+  <% end %>
+  
+</div>

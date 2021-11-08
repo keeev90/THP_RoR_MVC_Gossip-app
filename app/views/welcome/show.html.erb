@@ -1,0 +1,9 @@
+<br/><br/><br/><br/>
+<% if logged_in? %>
+<div class="container">
+  <h1>Salut, <%= current_user.username %> !</h1>
+  <p>Ici c'est notre super site de potins, il est chouette, non ?</p>
+</div>
+<% else %>
+  Bienvenue inconnu !
+<% end %>

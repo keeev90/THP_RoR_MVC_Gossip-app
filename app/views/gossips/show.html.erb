@@ -1,0 +1,76 @@
+<body>
+  <br/><br/><br/>
+  <!-- Alerts / Flash messages -->
+    <% flash.each do |key, msg| %>
+      <div class="alert alert-<%=key%> text-center" role="alert">
+        <%= msg %>
+      </div>
+    <% end %>
+  <!-- Gossip card -->
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h3>Titre : <%=@gossip.title%></h3>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Contenu : <%=@gossip.content%></h4>
+        <hr class="my-4 ">
+        <p class="card-text">
+          <ul>
+            <li>Créé le : <%=@gossip.created_at%></li>
+            <li>Gossip n°<%=@gossip.id%></li>
+            <li>Auteur : <%=@gossip.user.first_name%> <%=@gossip.user.last_name%></li>
+            <li>Nombre de likes : <%=@gossip.likes.count%><li>
+            <a class="btn btn-outline-secondary btn-sm" role="button" href="<%=user_path(@gossip.user.id)%>">A propos de l'auteur</a>
+            <li>Ville : <%=@gossip.user.city.name%></li>
+            <a class="btn btn-outline-secondary btn-sm" role="button" href="<%=city_path(@gossip.user.city_id)%>">Voir les gossips de <%=@gossip.user.city.name%></a>
+            <br/>
+          </ul>
+        </p>
+      </div>
+      <div class="card-footer justify-content-around">
+        <a class="btn btn-outline-success btn-sm" <%= link_to "Like", gossip_likes_path(@gossip.id), method: :post %>></a>
+        <a class="btn btn-warning btn-sm" role="button" href="<%=edit_gossip_path(@gossip.id)%>">Modifier le gossip</a>
+        <a class="btn btn-danger btn-sm" <%= link_to "Supprimer le gossip", gossip_path(@gossip.id), method: :delete, data: { confirm: "Are you sure?" } %>></a>
+      </div>
+    </div>
+  </div>
+  <!-- Comment creation -->
+  <div class= "container pt-5 pb-2">
+    <br/>
+    <h3> Lache ton com' </h3>
+    <div class="pb-1 pt-1">
+    <%= form_tag(gossip_comments_path(@gossip.id), method: "post") do %>
+      <%= text_field_tag 'gossip_id', @id, type: 'hidden', class: 'form-control' %>
+      <div class="form-group">
+        <%= text_area_tag 'content', '', class: 'form-control mt-3' %>
+      </div>
+      <%= submit_tag "Envoyer", class: 'btn btn-outline-primary btn-sm mt-3 ' %>
+    <% end %>
+  </div>
+  <!-- Comments list -->
+  <div class= "container pt-5 pb-2">
+    <h3> Liste des commentaires </h3><br/>
+    <div class="list-group mx-auto">
+      <% @gossip.comments.reverse.each do |comment| %>
+        <div class="list-group-item mb-2">
+          <div class="row">
+            <div class="col-9">
+              <p class="mb-2 fs-5"><%= comment.content %></p>
+              <p class="mb-2 text-muted">By <%= comment.user.first_name%></p>
+              <br/>
+              <a class="btn btn-warning btn-sm" role="button" href="<%=edit_gossip_comment_path(@gossip.id, comment.id)%>">Modifier le commentaire</a>
+              <a class="btn btn-danger btn-sm" href="<%= gossip_comment_path(@gossip.id, comment.id) %>" data-confirm="Etes-vous sûr de vouloir supprimer ce commentaire ?" data-method="DELETE">Supprimer le commentaire</a>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <br/><br/>
+  <div class="container text-center">
+    <a class="btn btn-primary btn-lg" role="button" href="<%=root_path%>">Revenir à l'accueil</a>
+  </div>
+  <br/><br/><br/><br/>
+</body>
+

@@ -1,0 +1,32 @@
+<body class="text-center">
+  <br/><br/><br/>
+  <!-- Alerts / Flash messages -->
+  <% flash.each do |key, msg| %>
+    <div class="alert alert-<%=key%> text-center" role="alert">
+      <%= msg %>
+    </div>
+  <% end %>
+
+  <!-- Titre de la page -->
+  <br/><br/>
+  <h1>Créer un gossip</h1>
+  <br/><br/>
+  <!-- Form via le helper form_tag -->
+  <%= form_for @gossip do |f| %>
+    <div class="form-group">
+      <label>Titre du gossip</label>
+      <%= f.text_field :title, placeholder: 'Titre', class: 'form-control' %>
+      <br/>
+    </div>
+    <div class="form-group">    
+      <label>Contenu du gossip</label>
+      <%= f.text_area :content, placeholder: 'Contenu', class: 'form-control' %>
+      <br/>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Valider</button>
+    </div>
+  <% end %>
+
+  <br/><br/><br/><br/>
+</body>
